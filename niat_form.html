@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NIAT Registration Form</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0a1628 0%, #0d2137 40%, #0a2e1f 100%);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    display: flex; align-items: center; justify-content: center; padding: 20px;
+  }
+  .form-wrapper {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 36px 32px;
+    width: 100%; max-width: 520px;
+    backdrop-filter: blur(10px);
+  }
+  .logo-wrap { text-align: center; margin-bottom: 24px; }
+  .logo-wrap img {
+    height: 52px;
+    background: #fff;
+    padding: 8px 16px;
+    border-radius: 10px;
+  }
+  h2 {
+    color: #fff; font-size: 22px; font-weight: 700;
+    text-align: center; margin-bottom: 28px;
+  }
+  .field { margin-bottom: 18px; }
+  label {
+    display: block; color: #c8d6e5;
+    font-size: 13px; font-weight: 500; margin-bottom: 6px;
+  }
+  label .req { color: #e74c3c; margin-left: 2px; }
+  input[type="text"], input[type="tel"], select {
+    width: 100%; padding: 11px 14px;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 8px; color: #fff; font-size: 14px;
+    outline: none; transition: border 0.2s;
+    appearance: none; -webkit-appearance: none;
+  }
+  input::placeholder { color: rgba(255,255,255,0.35); }
+  input:focus, select:focus { border-color: #6c63ff; background: rgba(255,255,255,0.1); }
+  select option { background: #1a2a3a; color: #fff; }
+  .select-wrap { position: relative; }
+  .select-wrap::after {
+    content: '▾'; position: absolute; right: 12px;
+    top: 50%; transform: translateY(-50%);
+    color: rgba(255,255,255,0.5); pointer-events: none; font-size: 14px;
+  }
+  .hidden { display: none; }
+  .error-msg {
+    color: #e74c3c; font-size: 11px; margin-top: 4px; display: none;
+  }
+  .field.has-error input, .field.has-error select { border-color: #e74c3c; }
+  .field.has-error .error-msg { display: block; }
+  .consent {
+    font-size: 12px; color: rgba(255,255,255,0.55);
+    margin: 20px 0; line-height: 1.6;
+  }
+  .consent a {
+    color: #7c8cf8; text-decoration: underline;
+    cursor: pointer; pointer-events: auto;
+  }
+  .consent a:hover { color: #a5b4fc; }
+  .submit-btn {
+    width: 100%; padding: 13px;
+    background: linear-gradient(90deg, #6c63ff, #48c6ef);
+    border: none; border-radius: 8px; color: #fff;
+    font-size: 15px; font-weight: 600; cursor: pointer;
+    transition: opacity 0.2s; letter-spacing: 0.5px;
+  }
+  .submit-btn:hover { opacity: 0.9; }
+  .success-msg {
+    text-align: center; color: #2ecc71;
+    font-size: 16px; font-weight: 600; padding: 20px 0; display: none;
+  }
+
+  /* Tablet */
+  @media (max-width: 768px) {
+    body { padding: 16px; align-items: flex-start; }
+    .form-wrapper { padding: 28px 24px; max-width: 100%; }
+    h2 { font-size: 19px; margin-bottom: 22px; }
+    .logo-wrap img { height: 44px; }
+  }
+
+  /* Mobile */
+  @media (max-width: 480px) {
+    body { padding: 10px; }
+    .form-wrapper { padding: 22px 16px; border-radius: 12px; }
+    h2 { font-size: 17px; margin-bottom: 18px; }
+    .logo-wrap { margin-bottom: 18px; }
+    .logo-wrap img { height: 38px; padding: 6px 12px; }
+    label { font-size: 12px; }
+    input[type="text"], input[type="tel"], select { font-size: 13px; padding: 10px 12px; }
+    .submit-btn { font-size: 14px; padding: 12px; }
+    .consent { font-size: 11px; }
+    .field { margin-bottom: 14px; }
+  }
+</style>
+</head>
+<body>
+<div class="form-wrapper">
+  <div class="logo-wrap">
+    <img src="https://d14qv6cm1t62pm.cloudfront.net/niat/niat.svg" alt="NIAT Logo">
+  </div>
+  <h2>AI-Bootcamp Registration Form</h2>
+  <form id="regForm" novalidate>
+
+    <div class="field" id="f_name">
+      <label>Enter your Name <span class="req">*</span></label>
+      <input type="text" id="name" placeholder="Enter your full name">
+      <div class="error-msg">Please enter your name</div>
+    </div>
+
+    <div class="field" id="f_phone">
+      <label>Phone Number <span class="req">*</span></label>
+      <input type="tel" id="phone" placeholder="10-digit mobile number" maxlength="10">
+      <div class="error-msg">Enter a valid 10-digit Indian mobile number</div>
+    </div>
+
+    <div class="field" id="f_parent">
+      <label>Parent Mobile Number <span class="req">*</span></label>
+      <input type="tel" id="parent_phone" placeholder="10-digit mobile number" maxlength="10">
+      <div class="error-msg">Enter a valid 10-digit Indian mobile number</div>
+    </div>
+
+    <div class="field" id="f_edu">
+      <label>Current Education <span class="req">*</span></label>
+      <div class="select-wrap">
+        <select id="current_edu">
+          <option value="">--Select--</option>
+          <option>Completed 12th/Intermediate 2nd Year</option>
+          <option>Studying 12th/Intermediate 2nd Year</option>
+          <option>Studying 11th/Intermediate 1st Year</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="error-msg">Please select your current education</div>
+    </div>
+
+    <div class="field hidden" id="f_other_edu">
+      <label>Other Education <span class="req">*</span></label>
+      <input type="text" id="other_edu" placeholder="Please specify your education">
+      <div class="error-msg">Please specify your education</div>
+    </div>
+
+    <div class="field" id="f_stream">
+      <label>Educational Stream <span class="req">*</span></label>
+      <div class="select-wrap">
+        <select id="edu_stream">
+          <option value="">--Select--</option>
+          <option>MPC / PCM (Maths Background)</option>
+          <option>BiPC / PCB (Biology Background)</option>
+          <option>PCBM(Maths + Biology Background)</option>
+          <option>PCM + CS (Maths + Computer Science)</option>
+          <option>PCM + E (Maths + Electronics)</option>
+          <option>PCM + S (Maths + Statistics)</option>
+          <option>Bio &amp; Computer</option>
+          <option>Commerce</option>
+          <option>Other (CEC, HEC, MEC, etc.)</option>
+        </select>
+      </div>
+      <div class="error-msg">Please select your educational stream</div>
+    </div>
+
+    <div class="field" id="f_lang">
+      <label>Native Language <span class="req">*</span></label>
+      <div class="select-wrap">
+        <select id="native_lang">
+          <option value="">--Select--</option>
+          <option>Telugu</option>
+          <option>Tamil</option>
+          <option>Malayalam</option>
+          <option>Marathi</option>
+          <option>Hindi</option>
+          <option>Kannada</option>
+          <option>Odia</option>
+          <option>Gujarati</option>
+          <option>Bengali</option>
+        </select>
+      </div>
+      <div class="error-msg">Please select your native language</div>
+    </div>
+
+    <div class="field" id="f_state">
+      <label>State <span class="req">*</span></label>
+      <div class="select-wrap">
+        <select id="state">
+          <option value="">--Select--</option>
+        </select>
+      </div>
+      <div class="error-msg">Please select your state</div>
+    </div>
+
+    <div class="field hidden" id="f_district">
+      <label>District <span class="req">*</span></label>
+      <div class="select-wrap">
+        <select id="district">
+          <option value="">--Select--</option>
+        </select>
+      </div>
+      <div class="error-msg">Please select your district</div>
+    </div>
+
+    <div class="field" id="f_slot">
+      <label>Preferred Slot Language <span class="req">*</span></label>
+      <div class="select-wrap">
+        <select id="slot_lang">
+          <option value="">--Select--</option>
+          <option>Tamil</option>
+          <option>Hindi</option>
+          <option>Telugu</option>
+          <option>Kannada</option>
+        </select>
+      </div>
+      <div class="error-msg">Please select your preferred slot language</div>
+    </div>
+
+    <div class="consent">
+      By proceeding further, I agree to the
+      <a href="https://www.niatindia.com/ai-bootcamp-tc" target="_blank" rel="noopener noreferrer">Terms &amp; Conditions</a>
+      and
+      <a href="https://www.ccbp.in/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+      of NxtWave
+    </div>
+
+    <button type="submit" class="submit-btn">SUBMIT</button>
+  </form>
+  <div class="success-msg" id="successMsg">Your response has been successfully recorded.</div>
+</div>
+<script>
+const stateDistricts = {
+  "Andaman & Nicobar Islands": ["Nicobar","North and Middle Andaman","South Andaman"],
+  "Andhra Pradesh": ["Anantapur","Chittoor","East Godavari","Guntur","Krishna","Kurnool","Prakasam","Sri Potti Sriramulu Nellore","Srikakulam","Visakhapatnam","Vizianagaram","West Godavari","YSR Kadapa"],
+  "Arunachal Pradesh": ["Anjaw","Changlang","East Kameng","East Siang","Kamle","Kra Daadi","Kurung Kumey","Lepa Rada","Lohit","Longding","Lower Dibang Valley","Lower Siang","Lower Subansiri","Namsai","Pakke-Kessang","Papum Pare","Shi Yomi","Siang","Tawang","Tirap","Upper Dibang Valley","Upper Siang","Upper Subansiri","West Kameng","West Siang"],
+  "Assam": ["Baksa","Barpeta","Bishwanath","Bongaigaon","Cachar","Charaideo","Chirang","Darrang","Dhemaji","Dhubri","Dibrugarh","Dima Hasao","Goalpara","Golaghat","Hailakandi","Hojai","Jorhat","Kamrup","Kamrup Metropolitan","Karbi Anglong","Karimganj","Kokrajhar","Lakhimpur","Majuli","Morigaon","Nagaon","Nalbari","Sivasagar","Sonitpur","South Salmara","Tinsukia","Udalguri","West Karbi Anglong"],
+  "Bihar": ["Araria","Arwal","Aurangabad","Banka","Begusarai","Bhagalpur","Bhojpur","Buxar","Darbhanga","East Champaran","Gaya","Gopalganj","Jamui","Jehanabad","Kaimur","Katihar","Khagaria","Kishanganj","Lakhisarai","Madhepura","Madhubani","Munger","Muzaffarpur","Nalanda","Nawada","Patna","Purnia","Rohtas","Saharsa","Samastipur","Saran","Sheikhpura","Sheohar","Sitamarhi","Siwan","Supaul","Vaishali","West Champaran"],
+  "Chandigarh": ["Chandigarh"],
+  "Chhattisgarh": ["Balod","Baloda Bazar","Balrampur","Bastar","Bemetara","Bijapur","Bilaspur","Dantewada","Dhamtari","Durg","Gariaband","Gaurela-Pendra-Marwahi","Janjgir-Champa","Jashpur","Kabirdham","Kanker","Kondagaon","Korba","Koriya","Mahasamund","Mungeli","Narayanpur","Raigarh","Raipur","Rajnandgaon","Sukma","Surajpur","Surguja"],
+  "Dadra and Nagar Haveli and Daman and Diu": ["Dadra and Nagar Haveli","Daman","Diu"],
+  "Delhi": ["Central Delhi","East Delhi","New Delhi","North Delhi","North East Delhi","North West Delhi","Shahdara","South Delhi","South East Delhi","South West Delhi","West Delhi"],
+  "Goa": ["North Goa","South Goa"],
+  "Gujarat": ["Ahmedabad","Amreli","Anand","Aravalli","Banaskantha","Bharuch","Bhavnagar","Botad","Chhota Udepur","Dahod","Dang","Devbhoomi Dwarka","Gandhinagar","Gir Somnath","Jamnagar","Junagadh","Kheda","Kutch","Mahisagar","Mehsana","Morbi","Narmada","Navsari","Panchmahal","Patan","Porbandar","Rajkot","Sabarkantha","Surat","Surendranagar","Tapi","Vadodara","Valsad"],
+  "Haryana": ["Ambala","Bhiwani","Charkhi Dadri","Faridabad","Fatehabad","Gurgaon","Hissar","Jhajjar","Jind","Kaithal","Karnal","Kurukshetra","Mahendragarh","Nuh","Palwal","Panchkula","Panipat","Rewari","Rohtak","Sirsa","Sonipat","Yamuna Nagar"],
+  "Himachal Pradesh": ["Bilaspur","Chamba","Hamirpur","Kangra","Kinnaur","Kullu","Lahaul and Spiti","Mandi","Shimla","Sirmaur","Solan","Una"],
+  "Jammu & Kashmir": ["Anantnag","Badgam","Bandipora","Baramulla","Doda","Ganderbal","Jammu","Kathua","Kishtwar","Kulgam","Kupwara","Poonch","Pulwama","Rajouri","Ramban","Reasi","Samba","Shopian","Srinagar","Udhampur"]
+};
+Object.assign(stateDistricts, {
+  "Jharkhand": ["Bokaro","Chatra","Deoghar","Dhanbad","Dumka","East Singhbhum","Garhwa","Giridih","Godda","Gumla","Hazaribag","Jamtara","Khunti","Koderma","Latehar","Lohardaga","Pakur","Palamu","Ramgarh","Ranchi","Sahibganj","Seraikela Kharsawan","Simdega","West Singhbhum"],
+  "Karnataka": ["Bagalkot","Ballari","Bangalore Rural","Bangalore Urban","Belgaum","Bidar","Bijapur","Chamarajanagara","Chikkaballapura","Chikmagalur","Chitradurga","Dakshina Kannada","Davanagere","Dharwad","Gadag","Gulbarga","Hassan","Haveri","Kodagu","Kolar","Koppal","Mandya","Mysore","Raichur","Ramanagara","Shimoga","Tumakuru","Udupi","Uttara Kannada","Yadgir"],
+  "Kerala": ["Alappuzha","Ernakulam","Idukki","Kannur","Kasaragod","Kollam","Kottayam","Kozhikode","Malappuram","Palakkad","Pathanamthitta","Thiruvananthapuram","Thrissur","Wayanad"],
+  "Ladakh": ["Kargil","Leh"],
+  "Lakshadweep": ["Lakshadweep"],
+  "Madhya Pradesh": ["Agar Malwa","Alirajpur","Anuppur","Ashok Nagar","Balaghat","Barwani","Betul","Bhind","Bhopal","Burhanpur","Chachaura-Binaganj","Chhatarpur","Chhindwara","Damoh","Datia","Dewas","Dhar","Dindori","Guna","Gwalior","Harda","Hoshangabad","Indore","Jabalpur","Jhabua","Katni","Khandwa (East Nimar)","Khargone (West Nimar)","Maihar","Mandla","Mandsaur","Morena","Nagda","Narsinghpur","Neemuch","Niwari","Panna","Raisen","Rajgarh","Ratlam","Rewa","Sagar","Satna","Sehore","Seoni","Shahdol","Shajapur","Sheopur","Shivpuri","Sidhi","Singrauli","Tikamgarh","Ujjain","Umaria","Vidisha"],
+  "Maharashtra": ["Ahmednagar","Akola","Amravati","Aurangabad","Beed","Bhandara","Buldhana","Chandrapur","Dhule","Gadchiroli","Gondia","Hingoli","Jalgaon","Jalna","Kolhapur","Latur","Mumbai City","Mumbai suburban","Nagpur","Nanded","Nandurbar","Nashik","Osmanabad","Palghar","Parbhani","Pune","Raigad","Ratnagiri","Sangli","Satara","Sindhudurg","Solapur","Thane","Wardha","Washim","Yavatmal"],
+  "Manipur": ["Bishnupur","Chandel","Churachandpur","Imphal East","Imphal West","Jiribam","Kakching","Kamjong","Kangpokpi","Noney","Pherzawl","Senapati","Tamenglong","Tengnoupal","Thoubal","Ukhrul"],
+  "Meghalaya": ["East Garo Hills","East Jaintia Hills","East Khasi Hills","North Garo Hills","Ri Bhoi","South Garo Hills","South West Garo Hills","South West Khasi Hills","West Garo Hills","West Jaintia Hills","West Khasi Hills"],
+  "Mizoram": ["Aizawl","Champhai","Hnahthial","Khawzawl","Kolasib","Lawngtlai","Lunglei","Mamit","Saiha","Saitual","Serchhip"],
+  "Nagaland": ["Dimapur","Kiphire","Kohima","Longleng","Mokokchung","Mon","Noklak","Peren","Phek","Tuensang","Wokha","Zunheboto"],
+  "Odisha": ["Angul","Balangir","Balasore","Bargarh (Baragarh)","Bhadrak","Boudh (Bauda)","Cuttack","Debagarh (Deogarh)","Dhenkanal","Gajapati","Ganjam","Jagatsinghpur","Jajpur","Jharsuguda","Kalahandi","Kandhamal","Kendrapara","Kendujhar (Keonjhar)","Khordha","Koraput","Malkangiri","Mayurbhanj","Nabarangpur","Nayagarh","Nuapada","Puri","Rayagada","Sambalpur","Subarnapur (Sonepur)","Sundargarh"],
+  "Puducherry": ["Karaikal","Mahe","Pondicherry","Yanam"],
+  "Punjab": ["Amritsar","Barnala","Bathinda","Faridkot","Fatehgarh Sahib","Fazilka","Firozpur","Gurdaspur","Hoshiarpur","Jalandhar","Kapurthala","Ludhiana","Mansa","Moga","Pathankot","Patiala","Rupnagar","Sahibzada Ajit Singh Nagar","Sangrur","Shahid Bhagat Singh Nagar","Sri Muktsar Sahib","Tarn Taran"]
+});
+Object.assign(stateDistricts, {
+  "Rajasthan": ["Ajmer","Alwar","Banswara","Baran","Barmer","Bharatpur","Bhilwara","Bikaner","Bundi","Chittorgarh","Churu","Dausa","Dholpur","Dungarpur","Ganganagar","Hanumangarh","Jaipur","Jaisalmer","Jalore","Jhalawar","Jhunjhunu","Jodhpur","Karauli","Kota","Nagaur","Pali","Pratapgarh","Rajsamand","Sawai Madhopur","Sikar","Sirohi","Tonk","Udaipur"],
+  "Sikkim": ["East Sikkim","North Sikkim","South Sikkim","West Sikkim"],
+  "Tamil Nadu": ["Ariyalur","Chengalpattu","Chennai","Coimbatore","Cuddalore","Dharmapuri","Dindigul","Erode","Kallakurichi","Kanchipuram","Kanyakumari","Karur","Krishnagiri","Madurai","Mayiladuthurai","Nagapattinam","Namakkal","Nilgiris","Perambalur","Pudukkottai","Ramanathapuram","Ranipet","Salem","Sivagangai","Tenkasi","Thanjavur","Theni","Thoothukudi","Tiruchirappalli","Tirunelveli","Tirupattur","Tiruppur","Tiruvallur","Tiruvannamalai","Tiruvarur","Vellore","Viluppuram","Virudhunagar"],
+  "Telangana": ["Adilabad","Bhadradri Kothagudem","Hyderabad","Jagtial","Jangaon","Jayashankar Bhupalpally","Jogulamba Gadwal","Kamareddy","Karimnagar","Khammam","Komaram Bheem","Mahabubabad","Mahbubnagar","Mancherial","Medak","Medchal-Malkajgiri","Mulugu","Nagarkurnool","Nalgonda","Narayanpet","Nirmal","Nizamabad","Peddapalli","Rajanna Sircilla","Ranga Reddy","Sangareddy","Siddipet","Suryapet","Vikarabad","Wanaparthy","Warangal Rural","Warangal Urban","Yadadri Bhuvanagiri"],
+  "Tripura": ["Dhalai","Gomati","Khowai","North Tripura","Sepahijala","South Tripura","Unokoti","West Tripura"],
+  "Uttar Pradesh": ["Agra","Aligarh","Ambedkar Nagar","Amethi","Amroha","Auraiya","Azamgarh","Bagpat","Bahraich","Ballia","Balrampur","Banda","Barabanki","Bareilly","Basti","Bhadohi","Bijnor","Budaun","Bulandshahr","Chandauli","Chitrakoot","Deoria","Etah","Etawah","Faizabad","Farrukhabad","Fatehpur","Firozabad","Gautam Buddh Nagar","Ghaziabad","Ghazipur","Gonda","Gorakhpur","Hamirpur","Hapur","Hardoi","Hathras","Jalaun","Jaunpur","Jhansi","Kannauj","Kanpur Dehat","Kanpur Nagar","Kasganj","Kaushambi","Kushinagar","Lakhimpur Kheri","Lalitpur","Lucknow","Maharajganj","Mahoba","Mainpuri","Mathura","Mau","Meerut","Mirzapur","Moradabad","Muzaffarnagar","Pilibhit","Pratapgarh","Prayagraj","Raebareli","Rampur","Saharanpur","Sambhal","Sant Kabir Nagar","Shahjahanpur","Shamli","Shravasti","Siddharthnagar","Sitapur","Sonbhadra","Sultanpur","Unnao","Varanasi"],
+  "Uttarakhand": ["Almora","Bageshwar","Chamoli","Champawat","Dehradun","Haridwar","Nainital","Pauri Garhwal","Pithoragarh","Rudraprayag","Tehri Garhwal","Udham Singh Nagar","Uttarkashi"],
+  "West Bengal": ["Alipurduar","Bankura","Birbhum","Cooch Behar","Dakshin Dinajpur","Darjeeling","Hooghly","Howrah","Jalpaiguri","Jhargram","Kalimpong","Kolkata","Maldah","Murshidabad","Nadia","North 24 Parganas","Paschim Bardhaman","Paschim Medinipur","Purba Bardhaman","Purba Medinipur","Purulia","South 24 Parganas","Uttar Dinajpur"]
+});
+
+// Populate state dropdown
+const stateEl = document.getElementById('state');
+Object.keys(stateDistricts).sort().forEach(s => {
+  const o = document.createElement('option');
+  o.value = s; o.textContent = s;
+  stateEl.appendChild(o);
+});
+
+// State -> District
+stateEl.addEventListener('change', function() {
+  const districtField = document.getElementById('f_district');
+  const districtEl = document.getElementById('district');
+  districtEl.innerHTML = '<option value="">--Select--</option>';
+  if (this.value && stateDistricts[this.value]) {
+    stateDistricts[this.value].forEach(d => {
+      const o = document.createElement('option');
+      o.value = d; o.textContent = d;
+      districtEl.appendChild(o);
+    });
+    districtField.classList.remove('hidden');
+  } else {
+    districtField.classList.add('hidden');
+  }
+  clearError('f_district');
+});
+
+// Other Education conditional
+document.getElementById('current_edu').addEventListener('change', function() {
+  const otherField = document.getElementById('f_other_edu');
+  if (this.value === 'Other') {
+    otherField.classList.remove('hidden');
+  } else {
+    otherField.classList.add('hidden');
+    document.getElementById('other_edu').value = '';
+    clearError('f_other_edu');
+  }
+});
+
+// Validation helpers
+function setError(id, msg) {
+  const f = document.getElementById(id);
+  f.classList.add('has-error');
+  if (msg) f.querySelector('.error-msg').textContent = msg;
+}
+function clearError(id) {
+  document.getElementById(id).classList.remove('has-error');
+}
+function isValidPhone(v) { return /^[6-9]\d{9}$/.test(v); }
+
+// Form submission
+const SHEET_URL = 'https://script.google.com/macros/s/AKfycbwiLpWwIppUqxx2oAkx0D4lS2Y3ESeiikW08nPE_I-JBAvI-EQWCG3ROZlDxKAMOlDi/exec';
+
+document.getElementById('regForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  let valid = true;
+
+  const name = document.getElementById('name').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const parent = document.getElementById('parent_phone').value.trim();
+  const edu = document.getElementById('current_edu').value;
+  const otherEdu = document.getElementById('other_edu').value.trim();
+  const stream = document.getElementById('edu_stream').value;
+  const lang = document.getElementById('native_lang').value;
+  const state = document.getElementById('state').value;
+  const district = document.getElementById('district').value;
+  const slot = document.getElementById('slot_lang').value;
+  const districtVisible = !document.getElementById('f_district').classList.contains('hidden');
+  const otherEduVisible = !document.getElementById('f_other_edu').classList.contains('hidden');
+
+  clearError('f_name'); clearError('f_phone'); clearError('f_parent');
+  clearError('f_edu'); clearError('f_other_edu'); clearError('f_stream');
+  clearError('f_lang'); clearError('f_state'); clearError('f_district');
+  clearError('f_slot');
+
+  if (!name) { setError('f_name'); valid = false; }
+  if (!isValidPhone(phone)) { setError('f_phone'); valid = false; }
+  if (!isValidPhone(parent)) { setError('f_parent'); valid = false; }
+  if (!edu) { setError('f_edu'); valid = false; }
+  if (otherEduVisible && !otherEdu) { setError('f_other_edu'); valid = false; }
+  if (!stream) { setError('f_stream'); valid = false; }
+  if (!lang) { setError('f_lang'); valid = false; }
+  if (!state) { setError('f_state'); valid = false; }
+  if (districtVisible && !district) { setError('f_district'); valid = false; }
+  if (!slot) { setError('f_slot'); valid = false; }
+
+  if (!valid) return;
+
+  const payload = {
+    name, phone, parent_phone: parent,
+    current_education: edu === 'Other' ? `Other - ${otherEdu}` : edu,
+    educational_stream: stream, native_language: lang,
+    state, district, preferred_slot_language: slot,
+    submitted_at: new Date().toISOString()
+  };
+
+  // Show success immediately — send to sheet in background
+  document.getElementById('regForm').style.display = 'none';
+  document.getElementById('successMsg').style.display = 'block';
+
+  fetch(SHEET_URL, {
+    method: 'POST', mode: 'no-cors',
+    headers: { 'Content-Type': 'text/plain' },
+    body: JSON.stringify(payload)
+  }).catch(() => {});
+});
+</script>
+</body>
+</html>
